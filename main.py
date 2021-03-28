@@ -4,6 +4,8 @@ from transformers import Trainer, TrainingArguments
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 from sklearn.model_selection import train_test_split
 import pandas as pd
+import logging as logger
+logger.basicConfig(level=logger.INFO)
 
 RANDOM_SEED = 42
 
@@ -30,7 +32,7 @@ def split_data(data, test_percent: float = 0.2):
 
 
 def main():
-    print('Loading model...')
+    logger.info('Loading model...')
     model = AlbertForSequenceClassification.from_pretrained('albert-base-v2')
     model.train().to('cuda')
     data = pd.read_csv("data/train-balanced-sarcasm.csv")
